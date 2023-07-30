@@ -136,6 +136,7 @@ function showApiData(data){
     }
 
     //카드 팝업 박스 이벤트
+const cards = document.querySelector('main .main-top .card-wrapper .scroll-box .cards')
 const card = document.querySelector('main .main-top .card-wrapper .scroll-box .cards button')
 console.log(card)
 const cardDetail = document.querySelector('main .main-top .card-wrapper .card-right')
@@ -147,12 +148,14 @@ card.addEventListener('click', function(e){
   console.log(e.target)
   if(e.target == card){
     cardDetail.style.display = 'block'
+    cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
   }
 })
 cardCloseBtn.addEventListener('click', function(e){
   console.log(e.target)
   if(e.target == cardCloseBtn){
     cardDetail.style.display = 'none'
+    cards.style = 'border-radius: 0.5rem; transition: 0s;'
   }
 })
 
