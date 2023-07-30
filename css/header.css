@@ -1,0 +1,170 @@
+body.dark{
+  background-color: #333;
+  color: white;
+}
+header{
+  width: 100%;
+  height: 4rem;
+  /* border: 1px solid red; */
+}
+header.dark{
+  background-color: #333;
+  color: white;
+}
+header .navBar{
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 80%;
+  min-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+/* 로고 스타일링 */
+header .navBar .logo{
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+header .navBar .logo:hover h1{
+  color: lightcoral;
+  letter-spacing: 0.01rem;
+}
+header .navBar .logo span{
+  font-size: 2rem;
+  color: lightcoral;
+  margin-right: 0.5rem;
+}
+header .navBar .logo h1{
+  font-size: 1.5rem;
+  transition: 0.2s;
+}
+/* 메뉴 스타일링 */
+header .navBar .nav{
+  height: 100%;
+  line-height: 4rem;
+}
+
+header .navBar .nav .menus{
+  /* border: 1px solid green; */
+  background-color: white;
+  display: flex;
+  text-align: center;
+  align-items: flex-start;
+  cursor: pointer;
+  /* position: absolute;
+  top: 1.5rem;
+  left: 15rem; */
+}
+header .navBar .nav .menus.dark { 
+  background-color: #333;
+}
+header .navBar .nav .menus > li{
+  /* border: 1px solid red; */
+  width: 5rem;
+  margin: 0 0.5rem;
+}
+header .navBar .nav .menus > li:hover{
+  color: lightcoral;
+  letter-spacing: 0.05rem;
+}
+header .navBar .nav .menus > li p{
+  font-weight: bold;
+}
+header .navBar .nav .menus > li .sub-menu{
+  /* border: 1px solid palegreen; */
+  display: none;
+}
+header .navBar .nav .menus > li .sub-menu li{
+  color: lightslategray;
+  padding: 0.5rem 0;
+}
+/* 아바타 스타일 */
+header .navBar .avatar{
+  border: 2px solid lightgray;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  object-position: center;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+header .navBar .avatar img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/* 모달창 오픈 버튼 스타일 */
+header .navBar .modal button{
+  border: none;
+  border-radius: 1rem;
+  background-color: lightcoral;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 4rem;
+  height: 1.5rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+header .navBar .modal button:hover{
+  background-color: rgb(248, 169, 169);
+}
+/*모달창 스타일 */
+header .navBar .modal-window{
+  /* border: 1px solid red; */
+  box-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.8);
+  width: 150px;
+  height: 2.5rem;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0 1rem;
+  font-weight: bold;
+  display: none;
+}
+header .navBar .modal-window.show{
+  display: block;
+}
+header .navBar .modal-window p{
+  line-height: 2.5rem;
+}
+header .navBar .modal-window button{
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+header .navBar .modal-window button:hover{
+ text-shadow: 0 0 1rem rgba(255, 255, 255, 0.8);
+}
+
+/* 모드 변경 버튼 스타일 */
+.mode{
+  cursor: pointer;
+}
+.mode.material-symbols-outlined{
+  cursor: pointer;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.mode span:not(.show){
+  display: none;
+}
+.mode .dark{
+  display: block;
+  color: white;
+  background: #333;
+}
