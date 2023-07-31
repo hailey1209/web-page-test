@@ -144,49 +144,69 @@ function showApiData(data){
       const cardWrapper = document.querySelector('main .main-top .card-wrapper')
       const scrollBox = document.createElement('div')
       scrollBox.className = 'scroll-box'
-      scrollBox.innerHTML = `<div class="cards">
+      scrollBox.innerHTML = `<div class="cards ${i}">
                       <img src="${data[i].image}" alt="">
                       <div class="description">
                         <h1>${data[i].name}</h1>
                         <p>${data[i].brand}</p>
                       </div>
-                      <button>more</button>
+                      <button class="${i}">more</button>
                     </div>
-                    <div class="card-right">
+                    <div class="card-right ${i}">
                       <div class="detail">
                       <h4>${data[i].brand}</h3>
                       <p>${data[i].product_type}</p>
                       <p>$${data[i].price}</p>
                       <p>${data[i].description}</p>
-                      <button>x</button>
+                      <button class="${i}">x</button>
                     </div>
                   </div>`
       cardWrapper.appendChild(scrollBox)
     }
-
-    //카드 팝업 박스 이벤트 (for문으로 이벤트 하나씩들어가게 처리해야함)
-    const cards = document.querySelector('main .main-top .card-wrapper .scroll-box .cards')
-    const card = document.querySelector('main .main-top .card-wrapper .scroll-box .cards button')
+    // 각각의 카드의 버튼을 클릭했을때 각 디테일 박스가 나와야하기 위해서 
+    //카드, 열기버튼, 닫기버튼에 같은 인덱스 값을 클래스명으로 지정해주고
+    //for문으로 돌려서 같은 인덱스값을 가진 요소들에 이벤트를 처리해준다
+    
+    //카드 팝업 박스 이벤트
+    const cards = document.querySelectorAll('main .main-top .card-wrapper .scroll-box .cards')
+    const card = document.querySelectorAll('main .main-top .card-wrapper .scroll-box .cards button')
     console.log(card)
-    const cardDetail = document.querySelector('main .main-top .card-wrapper .card-right')
-    const cardCloseBtn = document.querySelector('main .main-top .card-wrapper .card-right .detail button')
+    const cardDetail = document.querySelectorAll('main .main-top .card-wrapper .card-right')
+    const cardCloseBtn = document.querySelectorAll('main .main-top .card-wrapper .card-right .detail button')
     console.log(card)
     console.log(cardDetail)
 
-    card.addEventListener('click', function(e){
-      console.log(e.target)
-      if(e.target == card){
-        cardDetail.style.display = 'block'
-        cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
-      }
-    })
-    cardCloseBtn.addEventListener('click', function(e){
-      console.log(e.target)
-      if(e.target == cardCloseBtn){
-        cardDetail.style.display = 'none'
-        cards.style = 'border-radius: 0.5rem; transition: 0s;'
-      }
-    })
+    for(let i=0; i <cards.length; i++){
+      card[i].addEventListener('click', function(e){
+        console.log(card[i])
+        if(e.target.classList.contains(`${i}`)){
+          cardDetail[i].style.display = 'block'
+          cards[i].style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
+        }
+      })
+      
+      cardCloseBtn[i].addEventListener('click', function(e){
+        if(e.target.classList.contains(`${i}`)){
+          cardDetail[i].style.display = 'none'
+          cards[i].style = 'border-radius: 0.5rem; transition: 0s;'
+        }
+      })
+    }
+
+    // card.addEventListener('click', function(e){
+    //   console.log(e.target)
+    //   if(e.target == card){
+    //     cardDetail.style.display = 'block'
+    //     cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
+    //   }
+    // })
+    // cardCloseBtn.addEventListener('click', function(e){
+    //   console.log(e.target)
+    //   if(e.target == cardCloseBtn){
+    //     cardDetail.style.display = 'none'
+    //     cards.style = 'border-radius: 0.5rem; transition: 0s;'
+    //   }
+    // })
 
     // 다크모드
     const mode = document.querySelector('.mode')
@@ -215,13 +235,13 @@ function showApiData(data){
     }
     window.addEventListener('load', getResultList(data.length)) //브라우저가 로딩되었을때 기본으로 보여지는 박스
     window.addEventListener('scroll', (e)=> {
-      const resultList = document.querySelector('.result-box')
+      // const resultList = document.querySelector('.result-box')
       const scrollHeight =  Math.max(   // 전체문서 높이 (스크롤이벤트 내부에 있어야 함)
       document.body.scrollHeight, document.documentElement.scrollHeight,
       document.body.offsetHeight, document.documentElement.offsetHeight,
       document.body.clientHeight, document.documentElement.clientHeight
       );
-      console.log(Math.abs(scroller.getScrollPosition() + document.documentElement.clientHeight - scrollHeight))
+      // console.log(Math.abs(scroller.getScrollPosition() + document.documentElement.clientHeight - scrollHeight))
       if(Math.abs(scroller.getScrollPosition() + document.documentElement.clientHeight - scrollHeight) < 50){
         console.log('scroll is bottom of browser')
         getResultList(data.length)
