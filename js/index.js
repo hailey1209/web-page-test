@@ -1,7 +1,8 @@
 const scroller = new Scroller(false) // 스크롤 객체 생성
 
 window.onload =() => {
-
+  // 데이터 로딩 페이지 구현하기
+  
   // 새로고침시 페이지 상단으로 올리기
   scroller.setScrollPosition({top:0, behavior:'smooth'})
   
