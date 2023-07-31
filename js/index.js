@@ -43,6 +43,30 @@ window.onload =() => {
       history.pushState({},'',`/`)
       scroller.setScrollPosition({top:0, behavior:'smooth'})
   })
+
+  
+  // 스크롤 내렷을때 사이드 모달창 나오게하기
+  const sideModal = document.querySelector('.side-modal-container')
+  const sideModalCloseBtn =sideModal.querySelector('.side-modal-container .side-modal button')
+  sideModal.classList.add("hidden") //브라우저 로딩과 동시에 안보이게
+  function scrollAct(e){
+    const pageYOffset = window.pageYOffset
+    console.log(pageYOffset) 
+    if(pageYOffset > 0 && pageYOffset < 200 ){
+      sideModal.classList.add("hidden")
+    }else if(pageYOffset > 200){
+       sideModal.classList.remove("hidden")
+    }
+  }
+  function closeSideModal(e){
+    console.log(e.target)
+    if(e.target.classList.contains('close-btn')){
+      sideModal.classList.add('hidden')
+    }
+  }
+  window.addEventListener('scroll', scrollAct)
+  sideModalCloseBtn.removeEventListener('click', scrollAct)
+  sideModalCloseBtn.addEventListener('click', closeSideModal)
 }
 
 //스크롤링 중에 일어나는 이벤트
@@ -147,7 +171,7 @@ function showApiData(data){
       scrollBox.innerHTML = `<div class="cards ${i}">
                       <img src="${data[i].image}" alt="">
                       <div class="description">
-                        <h1>${data[i].name}</h1>
+                        <h1>${data[i].name.slice(data[i].brand.length)}</h1>
                         <p>${data[i].brand}</p>
                       </div>
                       <button class="${i}">more</button>
@@ -170,11 +194,11 @@ function showApiData(data){
     //카드 팝업 박스 이벤트
     const cards = document.querySelectorAll('main .main-top .card-wrapper .scroll-box .cards')
     const card = document.querySelectorAll('main .main-top .card-wrapper .scroll-box .cards button')
-    console.log(card)
+    // console.log(card)
     const cardDetail = document.querySelectorAll('main .main-top .card-wrapper .card-right')
     const cardCloseBtn = document.querySelectorAll('main .main-top .card-wrapper .card-right .detail button')
-    console.log(card)
-    console.log(cardDetail)
+    // console.log(card)
+    // console.log(cardDetail)
 
     for(let i=0; i <cards.length; i++){
       card[i].addEventListener('click', function(e){

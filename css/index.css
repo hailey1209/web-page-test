@@ -1,6 +1,7 @@
 @import url('reset.css');
 @import url('header.css');
 
+/* 위로가기 버튼 스타일 */
 .back-to-top{
   /* border: 1px solid red; */
   width: 3rem;
@@ -26,7 +27,43 @@
   cursor: pointer;
   transition: 0.2s;
 }
-
+/* 사이드 모달창 스타일 */
+.side-modal-container{
+  /* border: 1px solid red; */
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 0.8rem;
+  width: 20rem;
+  position: fixed;
+  right: 2rem;
+  bottom: 6rem;
+  padding: 0.5rem;
+  line-height: 1rem;
+  z-index: 5;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
+}
+.side-modal-container.hidden{
+  display: none;
+}
+.side-modal-container p{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.side-modal-container button{
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  cursor: pointer;
+}
+.side-modal-container button:hover{
+  color: lightcoral;
+}
+/* 메인 콘텐츠 */
 main{
   width: 100vw;
   height: 100vh;
