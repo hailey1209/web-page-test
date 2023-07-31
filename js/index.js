@@ -4,6 +4,7 @@ window.onload =() => {
 
   // 새로고침시 페이지 상단으로 올리기
   scroller.setScrollPosition({top:0, behavior:'smooth'})
+  
   // 테마 변경(다크 / 일반)
   const mode = document.querySelector('.mode')
   const icons = document.querySelectorAll('header .navBar .mode .material-symbols-outlined')
@@ -29,7 +30,35 @@ window.onload =() => {
     }
     console.log(e.target)
   })
+
+  //브라우저 상단으로 스크롤링
+  const arrowUp = document.querySelector('.back-to-top')
+  arrowUp.addEventListener('click', (e) => {
+      history.pushState({}, '', `#`) //url 주소 초기화
+      scroller.setScrollPosition({top:0, behavior: 'smooth'})
+  })
+  const logo = document.querySelector('header .logo')
+  logo.addEventListener('click', (e) =>{
+      e.preventDefault()  //a태그의 기본적인 동작을 제거
+      history.pushState({},'',`/`)
+      scroller.setScrollPosition({top:0, behavior:'smooth'})
+  })
 }
+
+//스크롤링 중에 일어나는 이벤트
+window.addEventListener('scroll', function(e){
+  //스크롤이 끝났는지 아닌지 체크하기
+  scroller.isScrollended()
+  .then(result => console.log('scroll eneded!'))
+  .catch(err => console.log('scrolling...'))
+
+  const header = document.querySelector('header')
+   //스크롤링중에 어느정도 스크롤바를 내리면 헤더에 그림자 추가
+   scroller.getScrollPosition() > header.offsetHeight ? 
+   header.classList.add('active')
+   : header.classList.remove('active')
+})
+
 
 // 모달창 열기
 const openModalBtn = document.querySelector('header .navBar .modal button')
@@ -135,44 +164,73 @@ function showApiData(data){
       cardWrapper.appendChild(scrollBox)
     }
 
-    //카드 팝업 박스 이벤트
-const cards = document.querySelector('main .main-top .card-wrapper .scroll-box .cards')
-const card = document.querySelector('main .main-top .card-wrapper .scroll-box .cards button')
-console.log(card)
-const cardDetail = document.querySelector('main .main-top .card-wrapper .card-right')
-const cardCloseBtn = document.querySelector('main .main-top .card-wrapper .card-right .detail button')
-console.log(card)
-console.log(cardDetail)
+    //카드 팝업 박스 이벤트 (for문으로 이벤트 하나씩들어가게 처리해야함)
+    const cards = document.querySelector('main .main-top .card-wrapper .scroll-box .cards')
+    const card = document.querySelector('main .main-top .card-wrapper .scroll-box .cards button')
+    console.log(card)
+    const cardDetail = document.querySelector('main .main-top .card-wrapper .card-right')
+    const cardCloseBtn = document.querySelector('main .main-top .card-wrapper .card-right .detail button')
+    console.log(card)
+    console.log(cardDetail)
 
-card.addEventListener('click', function(e){
-  console.log(e.target)
-  if(e.target == card){
-    cardDetail.style.display = 'block'
-    cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
-  }
-})
-cardCloseBtn.addEventListener('click', function(e){
-  console.log(e.target)
-  if(e.target == cardCloseBtn){
-    cardDetail.style.display = 'none'
-    cards.style = 'border-radius: 0.5rem; transition: 0s;'
-  }
-})
+    card.addEventListener('click', function(e){
+      console.log(e.target)
+      if(e.target == card){
+        cardDetail.style.display = 'block'
+        cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
+      }
+    })
+    cardCloseBtn.addEventListener('click', function(e){
+      console.log(e.target)
+      if(e.target == cardCloseBtn){
+        cardDetail.style.display = 'none'
+        cards.style = 'border-radius: 0.5rem; transition: 0s;'
+      }
+    })
 
-// 다크모드
-const mode = document.querySelector('.mode')
-const cardHeadings = document.querySelectorAll('main .main-top .scroll-box .cards .description h1')
-mode.addEventListener('click', function(e){
-  for(let h of cardHeadings){
-    h.classList.toggle('dark')
-  }
-})
-
-})
+    // 다크모드
+    const mode = document.querySelector('.mode')
+    const cardHeadings = document.querySelectorAll('main .main-top .scroll-box .cards .description h1')
+    mode.addEventListener('click', function(e){
+      for(let h of cardHeadings){
+        h.classList.toggle('dark')
+      }
+    })
+    //스크롤 할때마다 resultbox 추가하기
+    const resultWrapper =document.querySelector('main .main-mid .search-result-container .result-wrapper')
+    function getResultList(num){
+      for(let i=0; i < num; i++ ){
+        const resultList = document.createElement('div')
+        resultList.className = 'result-box'
+        resultList.innerHTML = `<img src="${data[i].image}" alt="">
+                                <div class="content">
+                                  <h1><a href="${data[i].itemLink}">${data[i].name.slice(data[i].brand.length)}</a></h1>
+                                  <div>
+                                    <p>${data[i].itemType}</p>
+                                    <p>$${data[i].price}</p>
+                                  </div>
+                                </div>`
+        resultWrapper.appendChild(resultList)
+      }
+    }
+    window.addEventListener('load', getResultList(data.length)) //브라우저가 로딩되었을때 기본으로 보여지는 박스
+    window.addEventListener('scroll', (e)=> {
+      const resultList = document.querySelector('.result-box')
+      const scrollHeight =  Math.max(   // 전체문서 높이 (스크롤이벤트 내부에 있어야 함)
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+      );
+      console.log(Math.abs(scroller.getScrollPosition() + document.documentElement.clientHeight - scrollHeight))
+      if(Math.abs(scroller.getScrollPosition() + document.documentElement.clientHeight - scrollHeight) < 50){
+        console.log('scroll is bottom of browser')
+        getResultList(data.length)
+      }
+    })
+  })
 }
 
 loadApi('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline')
 .then(data => loadData(data))
-// .then(data => console.log(data))
 .then(data => showApiData(data))
 
