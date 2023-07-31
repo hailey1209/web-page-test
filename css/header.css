@@ -58,7 +58,7 @@ header .navBar .nav{
 
 header .navBar .nav .menus{
   /* border: 1px solid green; */
-  background-color: white;
+  /* background-color: white; */
   display: flex;
   text-align: center;
   align-items: flex-start;
@@ -67,9 +67,6 @@ header .navBar .nav .menus{
   top: 1.5rem;
   left: 15rem; */
 }
-header .navBar .nav .menus.dark { 
-  background-color: #333;
-}
 header .navBar .nav .menus > li{
   /* border: 1px solid red; */
   width: 5rem;
@@ -77,18 +74,28 @@ header .navBar .nav .menus > li{
 }
 header .navBar .nav .menus > li:hover{
   color: lightcoral;
-  letter-spacing: 0.05rem;
+  /* letter-spacing: 0.05rem; */
 }
 header .navBar .nav .menus > li p{
   font-weight: bold;
 }
 header .navBar .nav .menus > li .sub-menu{
-  /* border: 1px solid palegreen; */
+  border: 1px solid lightslategray;
+  background-color: white;
   display: none;
+}
+header .navBar .nav .menus > li .sub-menu.dark { 
+  background-color: #333;
+  border: 1px solid white;
 }
 header .navBar .nav .menus > li .sub-menu li{
   color: lightslategray;
-  padding: 0.5rem 0;
+  height: 2.5rem;
+  line-height: 2rem;
+}
+header .navBar .nav .menus > li .sub-menu li:hover{
+  background-color: lightcoral;
+  color: white;
 }
 /* 아바타 스타일 */
 header .navBar .avatar{

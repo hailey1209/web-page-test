@@ -22,7 +22,9 @@ window.onload =() => {
     for(let btn of menuBtn){  //메뉴 버튼이 여러개라서 for문으로 돌려서 하나씩 지정해줌
       btn.classList.toggle('dark')
     }
-
+    for(let navMenu of navMenus){
+      navMenu.classList.toggle('dark')
+    }
     for(let icon of icons){  //모드 버튼의 display설정 변경
       icon.classList.contains('show') ? 
       icon.classList.remove('show')
@@ -67,6 +69,41 @@ window.onload =() => {
   window.addEventListener('scroll', scrollAct)
   sideModalCloseBtn.removeEventListener('click', scrollAct)
   sideModalCloseBtn.addEventListener('click', closeSideModal)
+
+  //네비게이션 바 메뉴 클릭 이벤트
+  const navMenuBar =document.querySelectorAll('header .navBar .nav .menus')
+  const navMenus = document.querySelectorAll('header .navBar .nav .menus > li .sub-menu')
+  // console.log(navMenus)
+  for(let i=0; i < navMenuBar.length; i++){
+    function menudisplay(e){
+      console.log(e.target)
+      switch(e.target.innerText){
+        case 'Menu':
+          navMenus[0].style.display ='block'
+          break
+        case 'About':
+          navMenus[1].style.display ='block'
+          break
+        case 'Contact':
+          navMenus[2].style.display ='block'
+          break
+        case 'My page':
+          navMenus[3].style.display = 'block'
+          break
+      }
+    }
+    //네비게이션 서브메뉴 닫기 이벤트 (닫기 가능하지만 오류 있음)
+    function menuhide(e){
+      console.log(e.target)
+      if(e.target.innerText == 'menu'){
+        navMenus[1].style.display = 'none'
+        navMenus[2].style.display = 'none'
+        navMenus[3].style.display = 'none'
+      }
+    }
+    navMenuBar[i].addEventListener('click', menudisplay)
+    navMenuBar[i].addEventListener('click', menuhide)
+  }
 }
 
 //스크롤링 중에 일어나는 이벤트
@@ -169,22 +206,24 @@ function showApiData(data){
       const scrollBox = document.createElement('div')
       scrollBox.className = 'scroll-box'
       scrollBox.innerHTML = `<div class="cards ${i}">
-                      <img src="${data[i].image}" alt="">
-                      <div class="description">
-                        <h1>${data[i].name.slice(data[i].brand.length)}</h1>
-                        <p>${data[i].brand}</p>
-                      </div>
-                      <button class="${i}">more</button>
-                    </div>
-                    <div class="card-right ${i}">
-                      <div class="detail">
-                      <h4>${data[i].brand}</h3>
-                      <p>${data[i].product_type}</p>
-                      <p>$${data[i].price}</p>
-                      <p>${data[i].description}</p>
-                      <button class="${i}">x</button>
-                    </div>
-                  </div>`
+                              <div class="img">
+                                <img src="${data[i].image}" alt="">
+                              </div>
+                              <div class="description">
+                                <h1>${data[i].name.slice(data[i].brand.length)}</h1>
+                                <p>${data[i].brand}</p>
+                              </div>
+                              <button class="${i}">more</button>
+                            </div>
+                            <div class="card-right ${i}">
+                              <div class="detail">
+                                <h4>${data[i].brand}</h3>
+                                <p>${data[i].product_type}</p>
+                                <p>$${data[i].price}</p>
+                                <p>${data[i].description}</p>
+                                <button class="${i}">x</button>
+                              </div>
+                            </div>`
       cardWrapper.appendChild(scrollBox)
     }
     // 각각의 카드의 버튼을 클릭했을때 각 디테일 박스가 나와야하기 위해서 
@@ -216,21 +255,6 @@ function showApiData(data){
         }
       })
     }
-
-    // card.addEventListener('click', function(e){
-    //   console.log(e.target)
-    //   if(e.target == card){
-    //     cardDetail.style.display = 'block'
-    //     cards.style = 'border-radius: 0.5rem 0 0 0.5rem; transition: 0s;'
-    //   }
-    // })
-    // cardCloseBtn.addEventListener('click', function(e){
-    //   console.log(e.target)
-    //   if(e.target == cardCloseBtn){
-    //     cardDetail.style.display = 'none'
-    //     cards.style = 'border-radius: 0.5rem; transition: 0s;'
-    //   }
-    // })
 
     // 다크모드
     const mode = document.querySelector('.mode')
