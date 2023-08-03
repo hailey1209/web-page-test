@@ -96,11 +96,11 @@ window.onload =() => {
     //네비게이션 서브메뉴 닫기 이벤트 (닫기 가능하지만 오류 있음)
     function menuhide(e){
       console.log(e.target)
-      if(e.target.innerText == 'menu'){
-        navMenus[1].style.display = 'none'
-        navMenus[2].style.display = 'none'
-        navMenus[3].style.display = 'none'
-      }
+      for(let i=0; i < navMenus.length; i++){
+        if(navMenus[i].innerText.includes(e.target.innerText)){
+          navMenus[i].style.display = 'none'
+        }
+      }return
     }
     navMenuBar[i].addEventListener('click', menudisplay)
     navMenuBar[i].addEventListener('click', menuhide)
