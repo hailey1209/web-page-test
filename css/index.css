@@ -311,6 +311,7 @@ main .main-mid .search-result-container .result-wrapper{
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 main .main-mid .search-result-container .result-wrapper .result-box{
   /* border: 1px solid blue; */
@@ -327,9 +328,15 @@ main .main-mid .search-result-container .result-wrapper .result-box{
   flex-direction: column;
   position: relative;
 }
-main .main-mid .search-result-container .result-wrapper .result-box img{
+main .main-mid .search-result-container .result-wrapper .result-box .result-img{
+  /* border: 1px solid red; */
   width: 50%;
   height: 40%;
+  margin: 0 auto;
+}
+main .main-mid .search-result-container .result-wrapper .result-box img{
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   object-fit: cover;
   object-position: center;

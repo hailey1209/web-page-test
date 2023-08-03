@@ -271,11 +271,11 @@ function showApiData(data){
       for(let i=0; i < num; i++ ){
         const resultList = document.createElement('div')
         resultList.className = 'result-box'
-        resultList.innerHTML = `<img src="${data[i].image}" alt="">
+        resultList.innerHTML = `<div class="result-img"><img src="${data[i].image}" alt=""></div>
                                 <div class="content">
                                   <h1><a href="${data[i].itemLink}">${data[i].name.slice(data[i].brand.length)}</a></h1>
                                   <div>
-                                    <p>${data[i].itemType}</p>
+                                    <p class="type">${data[i].itemType}</p>
                                     <p>$${data[i].price}</p>
                                   </div>
                                 </div>`
@@ -296,8 +296,29 @@ function showApiData(data){
         getResultList(data.length)
       }
     })
+
+    // 검색기능
+    const searchBar = document.querySelector('main .main-mid .search-container .search-keyword .search-bar')
+    const resultItems = document.querySelectorAll('main .main-mid .search-result-container .result-wrapper .result-box')
+
+    searchBar.addEventListener('keyup', function(e){
+      console.log(e.target.value)
+      for(let i=0; i < resultItems.length; i++){
+        const name = resultItems[i].querySelector('h1')
+        const type = resultItems[i].querySelector('p.type')
+        if(name.innerText.toLowerCase().includes(e.target.value) || name.innerText.toUpperCase().includes(e.target.value)){
+          resultItems[i].style.display = 'block'
+        }else if(type.innerText.toLowerCase().includes(e.target.value) || type.innerText.toUpperCase().includes(e.target.value)){
+          resultItems[i].style.display = 'block'
+        }else if(e.target.value == "" || e.target.value == null || !name.innerText.includes(e.target.value) || !type.innerText.includes(e.target.value)){
+          resultItems[i].style.display = 'none'
+        }
+        // console.log(resultItems[i].querySelector('h1'))
+      }
+    })
   })
 }
+
 
 loadApi('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline')
 .then(data => loadData(data))
