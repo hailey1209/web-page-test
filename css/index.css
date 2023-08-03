@@ -344,7 +344,7 @@ main .main-mid .search-result-container .result-wrapper .result-box img{
 main .main-mid .search-result-container .result-wrapper .result-box .content{
   /* border: 1px solid green; */
   height: 40%;
-  padding-left: 0.5rem;
+  padding: 0 0.25rem;
   color: black;
 }
 main .main-mid .search-result-container .result-wrapper .result-box .content h1{
